@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :game do
-    first_server
     status :pending
 
     trait :started do
@@ -9,6 +8,10 @@ FactoryGirl.define do
 
     trait :finished do
       status :finished
+    end
+
+    trait :with_first_server do
+      first_server
     end
   end
 end
