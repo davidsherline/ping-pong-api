@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  belongs_to :first_server, ->(game) { where(id: game.players.pluck(:id)) },
+  belongs_to :first_server, ->(game) { where(id: game.player_ids) },
              class_name: 'Player', optional: true
   has_and_belongs_to_many :players, inverse_of: :games
   has_many :points, dependent: :destroy, inverse_of: :game
@@ -7,4 +7,10 @@ class Game < ApplicationRecord
   accepts_nested_attributes_for :players, limit: 2
 
   enum status: [:pending, :started, :finished]
+
+  private
+
+  def player_ids
+    players.pluck(:id)
+  end
 end
