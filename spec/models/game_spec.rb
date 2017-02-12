@@ -11,4 +11,25 @@ RSpec.describe Game, type: :model do
   describe '#status' do
     it { should define_enum_for(:status).with([:pending, :started, :finished]) }
   end
+
+  describe '#first_server=' do
+    let(:game) { create(:game, :with_players) }
+
+    context 'when first server is a player' do
+      let(:first_server) { create(:player) }
+
+      it 'should raise ActiveModel::StrictValidationFailed' do
+        expect { game.first_server = first_server }
+          .to raise_error(ActiveModel::StrictValidationFailed)
+      end
+    end
+
+    context 'when first server is not a player' do
+      let(:first_server) { game.players.first }
+
+      it 'should set the first player' do
+        expect(game.first_server = first_server).to eq(first_server)
+      end
+    end
+  end
 end
