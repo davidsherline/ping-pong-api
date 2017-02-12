@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211165346) do
+ActiveRecord::Schema.define(version: 20170212004839) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "first_server_id"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20170211165346) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_players_on_name", unique: true
+  end
+
+  create_table "points", force: :cascade do |t|
+    t.integer  "game_id",    null: false
+    t.integer  "player_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "player_id"], name: "index_points_on_game_id_and_player_id"
+    t.index ["game_id"], name: "index_points_on_game_id"
+    t.index ["player_id"], name: "index_points_on_player_id"
   end
 
 end
