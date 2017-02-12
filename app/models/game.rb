@@ -13,4 +13,8 @@ class Game < ApplicationRecord
     errors.add(:first_server, :invalid, message: 'must be a player',
                                         strict: true)
   end
+
+  def score_for(player)
+    points.score_for(player)
+  end
 end

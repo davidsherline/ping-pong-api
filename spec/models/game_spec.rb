@@ -33,12 +33,24 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe '#current_server' do
-    let(:game) { create(:game) }
+  describe '#score_for' do
+    let(:game) { create(:game, :with_players) }
 
-    context 'when there is no first server' do
-      it 'should return nil' do
-        expect(game.current_server).to be(nil)
+    context 'with a player that has no points' do
+      let(:player) { game.players.first }
+
+      it 'should return 0' do
+        expect(game.score_for(player)).to eq(0)
+      end
+    end
+
+    context 'with a player that has 5 points' do
+      let(:player) { game.players.first }
+
+      before(:each) { create_list(:point, 5, player: player, game: game) }
+
+      it 'should return 5' do
+        expect(game.score_for(player)).to eq(5)
       end
     end
   end
