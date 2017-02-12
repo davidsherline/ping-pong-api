@@ -32,4 +32,14 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#current_server' do
+    let(:game) { create(:game) }
+
+    context 'when there is no first server' do
+      it 'should return nil' do
+        expect(game.current_server).to be(nil)
+      end
+    end
+  end
 end
