@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170212004839) do
+ActiveRecord::Schema.define(version: 20170212233359) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "first_server_id"
-    t.integer  "status",          default: 0, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "status",            default: 0, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "current_server_id"
+    t.index ["current_server_id"], name: "index_games_on_current_server_id"
     t.index ["first_server_id"], name: "index_games_on_first_server_id"
     t.index ["status"], name: "index_games_on_status"
   end
