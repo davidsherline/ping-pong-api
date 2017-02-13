@@ -87,4 +87,23 @@ RSpec.describe 'Players API', type: :request do
       end
     end
   end
+
+  describe 'DELETE /players/:id' do
+    before(:each) { delete "/players/#{player_id}" }
+
+    context 'when the player has no games' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'when the player has games' do
+      let(:game) { create(:game, :with_players) }
+      let(:player_id) { game.players.first.id }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+    end
+  end
 end

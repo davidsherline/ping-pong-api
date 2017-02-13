@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-  before_action :set_player, only: [:show, :update]
+  before_action :set_player, only: [:show, :update, :destroy]
 
   def index
     @players = Player.all
@@ -17,6 +17,11 @@ class PlayersController < ApplicationController
 
   def update
     @player.update(player_params)
+    head :no_content
+  end
+
+  def destroy
+    @player.destroy
     head :no_content
   end
 
